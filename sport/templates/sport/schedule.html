@@ -1,0 +1,70 @@
+{% extends 'sport/base.html' %}
+{% block title %}{{user.username}} - Schedule{% endblock %}
+{% block schedule_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid sports-container">
+
+    <div class="row">
+
+        {%if not tr_sport%}
+            <div class="col-sm-12">
+                <h3>You Don't Have Any Sports Yet!</h3>
+            </div>
+        {%endif%}
+
+        <div class="col-sm-12">
+
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" class="active"><a href=" {% url 'sport:add_sport'%}">Add New Sport</a></li>
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>{{user.username}}'s Schedule</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Sports</th>
+                            <th>Locations</th>
+                            <th>Sessions</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for day in all_days %}
+                            <tr> <td style="color:red">{{day}}:</td> </tr>
+                            {% for sp in tr_sport %}
+                                {%for dy in sp.sport.days.all%}
+                                    {%if dy == day%}
+                                        <tr>
+                                            <td></td>
+                                            <td><a href=" {% url 'sport:detail' sp.id%}">{{ sp.sport }}</a></td>
+                                            <td>{{ sp.sport.location }}</td>
+                                            <td>{{ sp.session_choice }}</td>
+                                        </tr>
+                                    {%endif%}
+                                {% endfor %}
+                            {% endfor %}
+                        {% endfor %}
+                    
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'sport/base.html' %}
+{% block title %}{{user.username}} - Financial Status{% endblock %}
+{% block financial_status_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid sports-container">
+
+    <div class="row">
+
+        {%if not tr_sports%}
+            <div class="col-sm-12">
+                <h3>You Don't Have Any Fees Yet!</h3>
+            </div>
+        {%endif%}
+
+        <div class="col-sm-7">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>{{user.username}}'s Financial Status</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Sport</th>
+                            <th>Fee</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for sp in tr_sports %}
+                            <tr>
+                                <td style="color:blue">{{ sp.sport }}</td>
+                                <td style="color:green">{{ sp.sport.fee }}$</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <h3 style="color:red";>Total Fee = {{total_fee}}$</h3>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

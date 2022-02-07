@@ -1,0 +1,61 @@
+<div class="sports-container container-fluid">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h1><strong>Welcome to Sporting!</h1></strong>
+            <h3>What is Sporting?</h3>
+            <p>Sporting is a Website that allow you to Subscribe to any Sport in the Club Online.</p>
+            <h3>How do I Subscribe to a Sport?</h3>
+            <p>First, you need to <a href="{% url 'sport:register' %}">Register</a> in to create a New Account or <a href="{% url 'sport:login_user' %}">Login</a> if you already have one. Then, click <a href="{% url 'sport:add_sport' %}">Add Sport</a> and choose the Sport and Session you want from the Form that will appear.</p>
+            <h3>What are some other Facilities at Sporting?</h3>
+            <ul>
+                <li>You can view the Details about each Sport you are Subscribed to.</li>
+                <li>You can view your Schedule all along the Week.</li>
+                <li>You can view your Medical Report.</li>
+                <li>You can Look up your Financial Status.</li>
+            </ul>
+        </div>
+        
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3 style="color:rgba(4, 0, 255, 0.664)";><strong>Sports That We Provide:</strong></h3>
+                    
+                    {% for sport in all_sports %}
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="thumbnail">
+                            <a href="{% url 'sport:detail_not_user' sport.id%}">
+                                <img src="{{ sport.sport_logo.url }}" class="img-responsive" style="width: 250px";>
+                            </a>
+                            <div class="caption">
+                                <h2>{{ sport.sport_name }}</h2>
+                                <a href="{% url 'sport:detail_not_user' sport.id%}" class="btn btn-primary btn-sm" role="button">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+                    {%endfor%}
+
+                    <div class="col-sm-12">
+                        <div class="col-sm-12 col-md-2">
+                            <a href="{% url 'sport:register'%}">
+                                <button type="button" class="btn btn-success">
+                                    <span class="fas fa-registered"></span>&nbsp; Register
+                                </button>
+                            </a>
+                        </div>
+                        
+                        <div class="col-sm-12 col-md-9">
+                            <a href="{% url 'sport:login_user'%}">
+                                <button type="button" class="btn btn-success">
+                                    <span class="glyphicon glyphicon-log-in"></span>&nbsp; Login
+                                </button>
+                            </a>
+                        </div>   
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

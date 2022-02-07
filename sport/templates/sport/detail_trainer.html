@@ -1,0 +1,73 @@
+{% extends 'sport/base.html' %}
+{% block title %}Trainer - {{ trainer}}{% endblock %}
+
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+    <div class="row">
+
+        <!-- Left Album Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="">
+                        {% if trainer.trainer_photo %}
+                            <img src="{{ trainer.trainer_photo.url }}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Song Info -->
+        <div class="col-sm-8 col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>Trainer {{ trainer.trainer_name }} Info</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Sport</th>
+                            <th>Sessions</th>
+                            <th>Age</th>
+                            <th>Phone Number</th>
+                        </tr>
+                        </thead>
+                        
+                        <tbody>
+                        <tr>
+                            <td>{{ trainer.trainer_name }}</td>
+                            <td>{{ trainer.sport }}</td>
+                            <td style="color:green">
+                                {% for session in trainer.sessions.all %}
+                                    {{ session }}<br>
+                                {%endfor%}
+                            </td>
+                            <td>{{age}} Years</td>
+                            <td>{{ trainer.phone_number }}</td>
+                        </tr>
+   
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

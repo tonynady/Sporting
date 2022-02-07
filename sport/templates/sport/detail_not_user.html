@@ -1,0 +1,74 @@
+{% extends 'sport/base_visitor.html' %}
+{% block title %}{{ sport }}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid songs-container">
+
+        <div class="row">
+
+            <!-- Left Album Info -->
+            <div class="col-sm-4 col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <a href="">
+                            {% if sport.sport_logo %}
+                                <img src="{{ sport.sport_logo.url }}" class="img-responsive">
+                            {% else %}
+                                <h3>No image to display</h3>
+                            {% endif %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Song Info -->
+            <div class="col-sm-8 col-md-9">
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <h3>{{ sport }}</h3>
+
+                        {% if error_message %}
+                            <p><strong>{{ error_message }}</strong></p>
+                        {% endif %}
+
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Sport</th>
+                                <th>Location</th>
+                                <th>Trainers</th>
+                                <th>Days</th>
+                            </tr>
+                            </thead>
+                            
+                            <tbody>
+                            <tr>
+                                <td>{{ sport }}</td>
+                                <td style="color:blue">{{ sport.location }}</td>
+                                <td style="color:green">
+                                    {% for trainer in trainers %}
+                                        {{trainer}}<br>
+                                    {%endfor%}
+                                </td>     
+                                <td style="color:red">
+                                    {% for day in sport.days.all %}
+                                        {{ day }}<br>
+                                    {%endfor%}
+                                </td>  
+                            </tr>
+    
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

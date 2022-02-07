@@ -1,0 +1,97 @@
+{% extends 'sport/base.html' %}
+{% block title %}{{ tr_sport }}{% endblock %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+    <div class="row">
+
+        <!-- Left Album Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="">
+                        {% if tr_sport.sport.sport_logo %}
+                            <img src="{{ tr_sport.sport.sport_logo.url }}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Song Info -->
+        <div class="col-sm-8 col-md-9">
+
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" class="active"><a href="{% url 'sport:schedule' %}">View Schedule</a></li>
+                <li role="presentation"><a href="{% url 'sport:add_sport'%}">Add New Sport</a></li>
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>{{ tr_sport.user }} - {{ tr_sport.sport }}</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Sport</th>
+                            <th>Location</th>
+                            <th>Session</th>
+                            <th>Days</th>
+                            <th>Trainers</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        
+                        <tbody>
+                        <tr>
+                            <td>{{ tr_sport.sport }}</td>
+                            <td>{{ tr_sport.sport.location }}</td>
+                            <td>{{ tr_sport.session_choice }}</td>
+                            <td style="color:green">
+                                {% for day in tr_sport.sport.days.all %}
+                                    {{ day }}<br>
+                                {%endfor%}
+                            </td>
+                            <td>
+                                {% for trainer in trainers %}
+                                    {% for session in trainer.sessions.all %}
+                                        {%if session == tr_sport.session_choice%}
+                                        <a href="{% url 'sport:detail_trainer' trainer.id%}">{{trainer}}</a><br>
+                                        {%endif%}
+                                    {%endfor%}
+                                {%endfor%}
+                            </td>
+                            <td>
+                                <form action="{% url 'sport:delete_sport' tr_sport.id %}" method="post" style="display: inline;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="tr_sport_id" value="{{ tr_sport.id }}" />
+                                    <button type="submit" class="btn btn-danger btn-xs">
+                                        <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete Sport
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+   
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

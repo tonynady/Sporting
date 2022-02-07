@@ -1,0 +1,51 @@
+{% extends 'sport/base.html' %}
+{% block title %}Add a New Sport{% endblock %}
+{% block add_sport_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-sm-12 col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Add a New Sport</h3>
+                    {% if error_message %}
+                        <p class="text-danger"><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% include 'sport/form_template.html' %}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Add</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>What is Sporting?</h3>
+                    <p>Sporting is a Website that allow you to Subscribe to any Sport in the Club Online.</p>
+                    <h3>How do I Subscribe to a Sport?</h3>
+                    <p>First, you need to <a href="{% url 'sport:register' %}">Register</a> in to create a New Account or <a href="{% url 'sport:login_user' %}">Login</a> if you already have one. Then, click <a href="{% url 'sport:add_sport' %}">Add Sport</a> and choose the Sport and Session you want from the Form that will appear.</p>
+                    <h3>What are some other Facilities at Sporting?</h3>
+                    <ul>
+                        <li>You can view the Details about each Sport you are Subscribed to.</li>
+                        <li>You can view your Schedule all along the Week.</li>
+                        <li>You can view your Medical Report.</li>
+                        <li>You can Look up your Financial Status.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
